@@ -1,0 +1,168 @@
+name: e_canada
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.0.6
+  webview_flutter: ^2.0.9
+  fluttertoast: ^7.1.8
+  permission_handler: ^8.1.3
+  flutter_statusbarcolor: ^0.2.3
+  flutter_svg: ^0.19.3
+  flutter_webview_plugin: ^0.4.0
+  connectivity: ^3.0.6
+  http: any
+
+#  shared_preferences: 0.5.12+2
+#  http: any
+#  connectivity: ^0.4.3+2
+#  flutter_statusbarcolor: ^0.2.3
+#  flutter_custom_clippers: ^1.1.2
+#  otp_text_field: ^1.1.0
+#  location: ^3.0.0
+#  geocoder: ^0.2.1
+#  flutter_svg: ^0.22.0
+#  url_launcher: ^5.7.10
+#  group_radio_button: ^1.0.1
+#  image_picker: 0.6.7+7
+#  fluttertoast: ^8.0.6
+#  youtube_player_flutter: ^8.0.0
+#  cupertino_icons: ^1.0.2
+#  dio: ^3.0.0
+#  html: ^0.15.0
+#  webview_flutter_plus: ^0.2.2
+#  marquee_widget: ^1.0.0
+#  minimize_app: ^0.1.1
+#  cached_network_image: ^2.5.1
+#  flutter_braintree: ^2.0.0+1
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/png/Splashbackground.png
+    - assets/images/svg/app_logo.svg
+    - assets/images/svg/inputfield.svg
+    - assets/images/svg/password.svg
+    - assets/images/svg/phonenumber.svg
+    - assets/images/svg/mail_icon.svg
+    - assets/images/svg/user_icon.svg
+    - assets/images/svg/applogo.svg
+    - assets/images/svg/app_text.svg
+    - assets/images/svg/loading_icon.svg
+    - assets/images/svg/circle_icon.svg
+    - assets/images/svg/check_icon.svg
+    - assets/images/svg/date_icon.svg
+    - assets/images/svg/request_mechanic.svg
+    - assets/images/svg/request_recovery.svg
+    - assets/images/svg/service_icon.svg
+    - assets/images/svg/repair_icon.svg
+    - assets/images/svg/tyre_icon.svg
+    - assets/images/svg/home.svg
+    - assets/images/svg/mot_icon.svg
+    - assets/images/svg/empty_circle.svg
+    - assets/images/svg/pass_verify.svg
+    - assets/images/svg/mail_verify.svg
+    - assets/images/svg/dummyprofilepic.svg
+    - assets/images/png/home_white.png
+    - assets/images/png/jobs.png
+    - assets/images/png/quotes.png
+    - assets/images/png/mailverified.png
+    - assets/images/png/phoneverified.png
+    - assets/images/png/card.png
+    - assets/images/png/quote_icon.png
+    - assets/images/png/menu.png
+    - assets/images/png/callus.png
+    - assets/images/png/emailus.png
+    - assets/images/png/pic_placeholder.jpg
+    - assets/images/png/credit_purse_logo.png
+    - assets/images/png/loan.png
+    - assets/images/png/logout_icon.png
+
+
+
+
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+
+  fonts:
+    - family: BankGothicMedium
+      fonts:
+        - asset: assets/fonts/bank_gothic_medium.otf
+          weight: 700
+    - family: BankGothicRegular
+      fonts:
+        - asset: assets/fonts/BankGothic Regular.ttf
+          weight: 700
+    - family: UbuntuBold
+      fonts:
+        - asset: assets/fonts/Ubuntu-Bold.ttf
+          weight: 700
+    - family: UbuntuRegular
+      fonts:
+        - asset: assets/fonts/Ubuntu-Regular.ttf
+          weight: 700
+    - family: UbuntuMedium
+      fonts:
+        - asset: assets/fonts/Ubuntu-Medium.ttf
+          weight: 700
+
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
