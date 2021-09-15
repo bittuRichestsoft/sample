@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:e_canada/AllResponse/LoginResponsePojo.dart';
 import 'package:e_canada/api/ApiUrl.dart';
 import 'package:e_canada/api/WebApi.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
+
+  String TAG ="LoginPage ";
   String firebaseToken;
   bool _passwordIconVisible = true;
   bool valuefirst = false;
@@ -39,8 +42,7 @@ class _LoginState extends State<LoginPage> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    // getFcmToken();
+    getFcmToken();
   //  setRememberUser();
   }
 
@@ -537,13 +539,13 @@ width:MediaQuery.of(context).size.width*0.5  ,
         ),
       ),
     );
-
   }
 
-  /*getFcmToken() async {
+  getFcmToken() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     String token = await messaging.getToken();
     firebaseToken = token;
+    debugPrint(TAG+" Fcm_token="+firebaseToken);
     GlobalUtility().setFcmToken(firebaseToken);
-  }*/
+  }
 }
