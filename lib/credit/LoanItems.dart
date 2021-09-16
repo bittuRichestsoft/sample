@@ -218,6 +218,7 @@ child:  Align(
       child: SingleChildScrollView(
           child: Column(
             children: [
+          Container(height: MediaQuery.of(context).size.height*0.06,),
               Text(
                 "Loans For Every",
                 style: TextStyle(

@@ -630,7 +630,7 @@ class NavDrawer extends StatefulWidget {
                 size: MediaQuery.of(context).size.width * 0.03,
               ),
               title: Text(
-                'DashBoard',
+                'Dashboard',
                 style: TextStyle(
                   fontFamily: 'UbuntuBold',
                   fontSize: MediaQuery.of(context).size.width * 0.035,
