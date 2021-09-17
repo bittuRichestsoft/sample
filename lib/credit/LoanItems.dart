@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:e_canada/AllResponse/LoansInfoResponse.dart';
 import 'package:e_canada/api/ApiUrl.dart';
+import 'package:e_canada/api/WebApi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
@@ -31,9 +35,7 @@ String username="", email="", profilepic="" ;
 
 class LoanItemsState extends State<LoanItems>
     with SingleTickerProviderStateMixin {
-
-
-
+  LoansInfoResponse loansInfoResponse;
 
   var topHeaderHeight = 0.0;
 
@@ -42,6 +44,7 @@ class LoanItemsState extends State<LoanItems>
     // TODO: implement initState
     super.initState();
     getSessionData();
+    callApiForGetLoanInfo();
   }
 
   @override
@@ -62,7 +65,7 @@ class LoanItemsState extends State<LoanItems>
             child: Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: topHeaderHeight/*-MediaQuery.of(context).size.height*0.02*/ ),
+                  padding: EdgeInsets.only(top: topHeaderHeight  ),
                   child: ListView(
                     children: [
                       loanTypesScroll()
@@ -117,7 +120,7 @@ child:  Align(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => CreditPurseHomePage(strHoldUsrId,"1")),
-                                      );
+                  );
                 },
                 child: Container(
                   padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01,right: MediaQuery.of(context).size.width*0.01,
@@ -162,7 +165,6 @@ child:  Align(
                       builder: (BuildContext context) {
                         return LogoutDialog();
                       });
-
                 },
                 child: Container(
                   padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01,right: MediaQuery.of(context).size.width*0.01,
@@ -212,13 +214,49 @@ child:  Align(
   }
 
 
+  void callApiForGetLoanInfo()  async {
+    var check_internet = await GlobalUtility().isConnected();
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+    if (check_internet) {
+      Map map = {
+        "action": "fetch_loan_type"
+      };
+
+      GlobalUtility().showLoaderDialog(context);
+      if (!currentFocus.hasPrimaryFocus) {
+        currentFocus.unfocus();
+      }
+      String apiResponse = await WebApi().register_user(map, "");
+      debugPrint("register_apiresponse:---- $apiResponse");
+      setState(() {
+        Navigator.of(context).pop();
+        var jsondata = json.decode(apiResponse);
+        bool success = jsondata['status'];
+        var message = jsondata['message'];
+
+        if (success) {
+          loansInfoResponse = loansInfoResponseFromJson(apiResponse);
+          GlobalUtility().showToast(loansInfoResponse.message);
+          debugPrint("login response= ${loansInfoResponse.data[0].id}");
+         } else {
+          GlobalUtility().showSnackBar(message, _scaffoldkey16);
+          debugPrint("message= ${message}");
+        }
+      });
+    }
+
+    else {
+      GlobalUtility() .showSnackBar("Please Check Internet Connection", _scaffoldkey16);
+    }
+  }
+
   loanTypesScroll() {
     return Container(
-      color: Colors.lightBlue[100] /*Color(GlobalUtility().hexStringToHexInt("#00ADAF"))*/,
+      color: Colors.lightBlueAccent  /* Color(GlobalUtility().hexStringToHexInt("#009fe3"))*/,
       child: SingleChildScrollView(
           child: Column(
             children: [
-          Container(height: MediaQuery.of(context).size.height*0.06,),
               Text(
                 "Loans For Every",
                 style: TextStyle(
@@ -230,7 +268,7 @@ child:  Align(
               Text(
                 "Customer",
                 style: TextStyle(
-                    color: Colors.green,
+                    color: Colors.white,
                     fontFamily: ApiUrl.UbuntuBold,
                     fontSize: MediaQuery.of(context).size.width * 0.08),
               ),
@@ -280,7 +318,7 @@ child:  Align(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     Text(
-                      'Small Personal Loan', // data[0].title!= null ? data[0].title :"Repairs",
+                      loansInfoResponse!=null? '${loansInfoResponse.data[0].title}' :'Small Personal Loan',
                       style: TextStyle(
                           fontFamily: 'UbuntuRegular',
                           fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -289,7 +327,7 @@ child:  Align(
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      '\$300-\$2500',
+                      loansInfoResponse!=null? '${loansInfoResponse.data[0].minPrice}-${loansInfoResponse.data[0].maxPrice}' : '\$300-\$2500'  ,
                       style: TextStyle(
                           fontFamily: ApiUrl.UbuntuBold,
                           fontSize: MediaQuery.of(context).size.width * 0.05,
@@ -300,7 +338,7 @@ child:  Align(
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        ApiUrl.firstLoanTxt,
+                        loansInfoResponse!=null? '${loansInfoResponse.data[0].description}' : ApiUrl.firstLoanTxt,
                         style: TextStyle(
                             fontFamily: 'UbuntuRegular',
                             fontSize: MediaQuery.of(context).size.width * 0.035,
@@ -383,7 +421,7 @@ child:  Align(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     Text(
-                      'Medium Personal Loan',
+                      loansInfoResponse!=null? '${loansInfoResponse.data[1].title}' :'Medium Personal Loan',
                       style: TextStyle(
                           fontFamily: 'UbuntuRegular',
                           fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -391,7 +429,7 @@ child:  Align(
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      '\$2500-\$5000',
+                      loansInfoResponse!=null? '${loansInfoResponse.data[1].minPrice}-${loansInfoResponse.data[1].maxPrice}' : '\$2500-\$5000',
                       style: TextStyle(
                           fontFamily: ApiUrl.UbuntuBold,
                           fontSize: MediaQuery.of(context).size.width * 0.05,
@@ -451,31 +489,7 @@ child:  Align(
             },
           ),
         ),
-       /* Align(
-          alignment: Alignment.center,
-          child: Container(
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.width * 0.01,
-                bottom: MediaQuery.of(context).size.width * 0.01,
-                left: MediaQuery.of(context).size.width * 0.02,
-                right: MediaQuery.of(context).size.width * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.green[900],
-              borderRadius: BorderRadius.all(
-                  Radius.circular(MediaQuery.of(context).size.height * 0.01)),
-            ),
-            child: Text(
-              "All Rights Reserved",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: MediaQuery.of(context).size.height * 0.025,
-                *//*fontFamily: Strings.UbuntuBold,*//*
-                *//*fontWeight: FontWeight.bold*//*
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),*/
+
       ]),
     );
   }
@@ -509,7 +523,7 @@ child:  Align(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     Text(
-                      'Large Personal Loan', // data[0].title!= null ? data[0].title :"Repairs",
+                      loansInfoResponse!=null? '${loansInfoResponse.data[2].title}' :'Large Personal Loan', // data[0].title!= null ? data[0].title :"Repairs",
                       style: TextStyle(
                           fontFamily: 'UbuntuRegular',
                           fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -518,8 +532,8 @@ child:  Align(
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      '\$5000-\$25000',
-                      style: TextStyle(
+                      loansInfoResponse!=null? '${loansInfoResponse.data[2].minPrice}-${loansInfoResponse.data[2].maxPrice}' : '\$5000-\$25000',
+                     style: TextStyle(
                           fontFamily: ApiUrl.UbuntuBold,
                           fontSize: MediaQuery.of(context).size.width * 0.05,
                           fontWeight: FontWeight.bold,
@@ -528,8 +542,7 @@ child:  Align(
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        ApiUrl.thirdLoanTxt,
+                      child: Text(  loansInfoResponse!=null? '${loansInfoResponse.data[2].description}' : ApiUrl.thirdLoanTxt,
                         style: TextStyle(
                             fontFamily: 'UbuntuRegular',
                             fontSize: MediaQuery.of(context).size.width * 0.035,
@@ -561,9 +574,7 @@ child:  Align(
                               color: Colors.white,
                               fontSize:
                               MediaQuery.of(context).size.height * 0.03,
-                              /*fontFamily: Strings.UbuntuBold,*/
-                              /*fontWeight: FontWeight.bold*/
-                            ),
+                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
