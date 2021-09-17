@@ -1,42 +1,41 @@
 {
   "project_info": {
-    "project_number": "759017628547",
-    "project_id": "indiaweb-13659",
-    "storage_bucket": "indiaweb-13659.appspot.com"
+    "project_number": "605353433473",
+    "project_id": "creditpurse-530ec",
+    "storage_bucket": "creditpurse-530ec.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:759017628547:android:e6412cb1b80cb9d7fcccb6",
+        "mobilesdk_app_id": "1:605353433473:android:dee8d875d638ce8c8bf080",
         "android_client_info": {
           "package_name": "com.app.creditpurse"
         }
       },
       "oauth_client": [
         {
-          "client_id": "759017628547-i04v3e70nnd26ee4i0usprjl698535lk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.app.creditpurse",
-            "certificate_hash": "9e26d70d417daba354753de7220370c0dcd9ec53"
-          }
-        },
-        {
-          "client_id": "759017628547-5kofq9c7hap79urdrj3f8ad0rao8eo4t.apps.googleusercontent.com",
+          "client_id": "605353433473-l55ldkes08tcqfkl116pfs701plcqal8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDNjIwds7pNrzQmXs235MkUHdWdM3WC_m4"
+          "current_key": "AIzaSyBxgWajtj793r0ALVgvwyKGQSEPVhkRMO4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "759017628547-5kofq9c7hap79urdrj3f8ad0rao8eo4t.apps.googleusercontent.com",
+              "client_id": "605353433473-l55ldkes08tcqfkl116pfs701plcqal8.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "605353433473-9gakvkr3vrtadgs48vubqv66accejrm5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.creditpurse"
+              }
             }
           ]
         }
