@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'dart:io';
@@ -52,7 +53,7 @@ WebViewController _webViewController;
 class CreditPurseHomePageState extends State<CreditPurseHomePage>
     with SingleTickerProviderStateMixin {
 
-  String strHoldUserId="";
+  String strHoldUserId="",TAG="CreditPurseHomePage ";
   CreditPurseHomePageState(String holdId,holdPage) {
     strUserId=   strHoldUserId = holdId;
     strHoldPageNmbr=holdPage;
@@ -66,6 +67,8 @@ var isInternet=true;
   PermissionStatus _permissionStatus = PermissionStatus.denied;
   bool showRetry=false;
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+  final flutterWebviewPlugin = new FlutterWebviewPlugin();
 
 
   @override
@@ -91,8 +94,21 @@ setState(() {
   {
     urlForWeb=ApiUrl.DocumentUrl3;
   }
-debugPrint("TAg  $urlForWeb");
+debugPrint(TAG+"TAg  $urlForWeb");
 });
+
+    flutterWebviewPlugin.onUrlChanged.listen((String url) {
+      debugPrint(TAG+"flutterWebviewPlugin url=$url");
+  if(url.contains("https://creditpurse.com.au/wp-content/themes/Divi/contract_pdf.php"))
+    {
+
+
+
+checkAndNavigateUrl(/*url*/ "https://www.google.com");
+
+
+    }
+    });
 
   }
 
@@ -112,8 +128,6 @@ debugPrint("TAg  $urlForWeb");
     await Permission.storage.request();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(
@@ -126,9 +140,7 @@ debugPrint("TAg  $urlForWeb");
 
       topHeaderHeight = MediaQuery.of(context).size.height * 0.1;
 
-    /*MediaQuery.of(context).size.height * 0.22 -
-        MediaQuery.of(context).padding.top -
-        kToolbarHeight;*/
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
@@ -171,18 +183,9 @@ debugPrint("TAg  $urlForWeb");
                       child: const Center(
                         child: Text('Loading.....'),
                       )),
+
                 )
-            /*    Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.1),
-       child: WebviewScaffold(
-                    url: baseUrl+strHoldUserId,
-         withLocalStorage: true,
-         initialChild: Container(
-           color: Colors.white,
-           child: const Center(
-             child: Text('Loading.....'),
-                )),
-     ))*/: netNotConnected(),
+             : netNotConnected(),
               ),
 
               isLoading ? Center( child: CircularProgressIndicator(),)
@@ -461,11 +464,32 @@ child:           Align(
         ],
       )),
 ),
-
           ),
         ],
       ),
     );
+  }
+
+/*  void checkAndNavigateUrl(String url) async {
+    if (await canLaunch(url)) {
+    await launch(url, forceWebView: true);
+    } else {
+    throw 'Could not launch $url';
+    }
+  }*/
+
+  Future<void> checkAndNavigateUrl(String url) async {
+   try {
+     if (!await canLaunch(url)) {
+       await launch(url);
+     } else {
+       throw 'Could not launch $url';
+     }
+   }
+   catch(excep)
+    {
+      debugPrint(TAG+" excep="+excep.toString());
+    }
   }
 
 }

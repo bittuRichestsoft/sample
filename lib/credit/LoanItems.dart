@@ -237,7 +237,7 @@ child:  Align(
 
         if (success) {
           loansInfoResponse = loansInfoResponseFromJson(apiResponse);
-          GlobalUtility().showToast(loansInfoResponse.message);
+      //    GlobalUtility().showToast(loansInfoResponse.message);
           debugPrint("login response= ${loansInfoResponse.data[0].id}");
          } else {
           GlobalUtility().showSnackBar(message, _scaffoldkey16);
@@ -257,6 +257,8 @@ child:  Align(
       child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: MediaQuery.of(context).size.height*0.1,),
+
               Text(
                 "Loans For Every",
                 style: TextStyle(
@@ -824,7 +826,7 @@ class NavDrawer extends StatelessWidget {
 
               },
               title: Text(
-                'DashBoard',
+                'Dashboard',
                 style: TextStyle(
                   fontFamily: 'UbuntuBold',
                   fontSize: MediaQuery.of(context).size.width * 0.035,

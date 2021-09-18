@@ -34,13 +34,13 @@ class _MyAppState extends State<SplashPage> {
 @override
   void initState() {
   getFcmToken();
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+/*  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');
 
-    Navigator.pushReplacement(
+   *//* Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => SignUpPage()),
-    );
+    );*//*
     checkNotification(message);
   });
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
@@ -49,6 +49,14 @@ class _MyAppState extends State<SplashPage> {
       MaterialPageRoute(builder: (context) => SignUpPage()),
     );
   });
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);*/
+
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    checkNotification(message);
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   }
