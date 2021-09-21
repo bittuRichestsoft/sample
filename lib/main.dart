@@ -73,10 +73,10 @@ class _MyAppState extends State<SplashPage> {
   Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     print("Handling a background message: ${message.messageId}");
 
-    Navigator.pushReplacement(
+    /*Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => SignUpPage()),
-    );
+    );*/
 
   }
   void showNotification(String title, String body) async {
